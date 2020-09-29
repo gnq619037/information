@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2020/9/28 15:44
  */
 @RestController
-@RequestMapping("/information")
+@RequestMapping("/information.sql")
 public class InformationController {
 
     @Autowired

@@ -9,6 +9,7 @@ import com.query.info.service.InformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -28,5 +29,15 @@ public class InformationServiceImpl implements InformationService {
         List<Information> informationList = informationMapper.queryInformation(informationDto);
         PageInfo<Information> pageInfo = new PageInfo<>(informationList);
         return new InfoResponse<PageInfo<Information>>().code(0).message("").result(pageInfo);
+    }
+
+    @Override
+    public InfoResponse<String> exportInformation(InformationDto informationDto) {
+        return null;
+    }
+
+    @Override
+    public InfoResponse<String> uploadInformation(InputStream inputStream) {
+        return null;
     }
 }
