@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author guonanqing
  * @version 1.0
- * @desc
+ * @desc 响应封装实体
  * @date 2020/9/28 14:57
  */
 public class InfoResponse<T> implements Serializable {

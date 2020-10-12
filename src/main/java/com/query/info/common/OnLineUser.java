@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author guonanqing
  * @version 1.0
- * @desc
+ * @desc 用户session实体
  * @date 2020/9/28 16:17
  */
 public class OnLineUser implements Serializable {

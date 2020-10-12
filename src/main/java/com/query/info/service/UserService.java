@@ -32,11 +32,6 @@ public interface UserService {
     public InfoResponse<Boolean> logout();
 
     /**
-     * 分配权限
-     */
-//    public InfoResponse<String> assignPermission(long userId, long permissionId);
-
-    /**
      * 分配角色
      * @param userId
      * @param roleId

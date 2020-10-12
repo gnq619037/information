@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author guonanqing
  * @version 1.0
- * @desc
+ * @desc 角色
  * @date 2020/9/28 16:01
  */
 public class Role implements Serializable {

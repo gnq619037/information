@@ -1,12 +1,11 @@
 package com.query.info.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author guonanqing
  * @version 1.0
- * @desc
+ * @desc 用户信息
  * @date 2020/9/28 14:33
  */
 public class Information implements Serializable {

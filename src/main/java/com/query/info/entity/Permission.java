@@ -3,7 +3,7 @@ package com.query.info.entity;
 /**
  * @author guonanqing
  * @version 1.0
- * @desc
+ * @desc 权限
  * @date 2020/9/28 16:02
  */
 public class Permission {
