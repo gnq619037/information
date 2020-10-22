@@ -57,21 +57,9 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         Map<String, String> filterChainDefinitionMap = new HashMap<>();
-        filterChainDefinitionMap.put("/login", "anon");
-        filterChainDefinitionMap.put("/information/page","infoFormAuthenticationFilter");
-//        List<ShiroUrl> shiroUrls = shiroUrlMapper.queryAllShiroUrl();
-//        logger.info("*************加载scxFormAuthenticationFilter*************");
-//        shiroUrls.stream().forEach(e -> {
-//            if(ConstantParam.SCX_AUTH_FILTER.equals(e.getFilterType())){
-//                filterChainDefinitionMap.put(e.getUrl(), e.getFilterType());
-//            }
-//        });
-//        logger.info("*************加载anon*************");
-//        shiroUrls.stream().forEach(e -> {
-//            if(ConstantParam.ANON.equals(e.getFilterType())){
-//                filterChainDefinitionMap.put(e.getUrl(), e.getFilterType());
-//            }
-//        });
+        filterChainDefinitionMap.put("/information/*","infoFormAuthenticationFilter");
+        filterChainDefinitionMap.put("/user/list","infoFormAuthenticationFilter");
+        filterChainDefinitionMap.put("/user/assignRole","infoFormAuthenticationFilter");
         Map<String, Filter> filterMap = new LinkedHashMap<>();
         filterMap.put("infoFormAuthenticationFilter", shiroFormAuthenticationFilter());
         shiroFilterFactoryBean.setFilters(filterMap);

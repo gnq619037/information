@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.query.info.dao.UserMapper" >
+    <!--<cache></cache>-->
+    <resultMap id="Result" type="com.query.info.entity.User" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="role_code" property="roleCode" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="BaseColumn">
+        id, username, password, role_code
+    </sql>
+
+    <select id="queryUsers" resultMap="Result" parameterType="com.query.info.dto.UserDto">
+        SELECT <include refid="BaseColumn" /> FROM t_user
+        <where>
+            1=1
+        </where>
+        ORDER BY id desc;
+    </select>
+</mapper>

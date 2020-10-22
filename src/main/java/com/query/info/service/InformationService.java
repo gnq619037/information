@@ -6,6 +6,8 @@ import com.query.info.dto.InformationDto;
 import com.query.info.entity.Information;
 
 import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author guonanqing
@@ -34,4 +36,20 @@ public interface InformationService {
      * @return
      */
     public InfoResponse<String> uploadInformation(InputStream inputStream);
+
+    /**
+     * 批量
+     * @param information
+     * @return
+     */
+    public InfoResponse<String> inputData(List<Information> information);
+
+    /**
+     * 导出
+     * @param informationDto
+     * @return
+     */
+    public InfoResponse<String> exportData(InformationDto informationDto);
+
+    public List<Map<String, String>> queryData(InformationDto informationDto);
 }

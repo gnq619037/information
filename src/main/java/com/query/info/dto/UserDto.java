@@ -1,16 +1,16 @@
-package com.query.info.entity;
+package com.query.info.dto;
 
 import java.io.Serializable;
 
 /**
  * @author guonanqing
  * @version 1.0
- * @desc 用户
- * @date 2020/9/28 14:33
+ * @desc
+ * @date 2020/10/13 16:26
  */
-public class User implements Serializable {
+public class UserDto implements Serializable{
 
-    private static final long serialVersionUID = 1411278068759389405L;
+    private static final long serialVersionUID = -6696341133016109289L;
     private long id;
 
     private String username;

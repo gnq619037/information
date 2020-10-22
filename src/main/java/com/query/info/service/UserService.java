@@ -2,7 +2,11 @@ package com.query.info.service;
 
 import com.query.info.common.InfoResponse;
 import com.query.info.common.OnLineUser;
+import com.query.info.dto.InformationDto;
+import com.query.info.dto.UserDto;
 import com.query.info.entity.User;
+
+import java.util.List;
 
 /**
  * @author guonanqing
@@ -38,4 +42,9 @@ public interface UserService {
      * @return
      */
     public InfoResponse<String> assignRole(long userId, long roleId);
+
+
+    public InfoResponse<List<User>> listUsers(UserDto userDto);
+
+    public InfoResponse<String> deleteUser(User user);
 }

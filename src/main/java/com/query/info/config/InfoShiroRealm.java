@@ -37,18 +37,18 @@ public class InfoShiroRealm extends AuthorizingRealm {
         String username = (String) principalCollection.getPrimaryPrincipal();
         User user = userMapper.getUserByName(username);
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        Role role = userMapper.selectRoleByUser(user);
-        if(role != null) {
-            Set<String> roleCodes = new HashSet<>();
-            roleCodes.add(role.getRoleCode());
-            simpleAuthorizationInfo.setRoles(roleCodes);
-            List<Permission> permissions = userMapper.queryPermissionByRole(role);
-            Set<String> permissionCodes = new HashSet<>(permissions.size());
-            for(Permission permission : permissions) {
-                permissionCodes.add(permission.getPerCode());
-            }
-            simpleAuthorizationInfo.setStringPermissions(permissionCodes);
+//        Role role = userMapper.selectRoleByUser(user);
+        Set<String> roleCodes = new HashSet<>();
+        roleCodes.add(user.getRoleCode());
+        simpleAuthorizationInfo.setRoles(roleCodes);
+        Role role = new Role();
+        role.setRoleCode(user.getRoleCode());
+        List<Permission> permissions = userMapper.queryPermissionByRole(role);
+        Set<String> permissionCodes = new HashSet<>(permissions.size());
+        for(Permission permission : permissions) {
+            permissionCodes.add(permission.getPerCode());
         }
+        simpleAuthorizationInfo.setStringPermissions(permissionCodes);
         return simpleAuthorizationInfo;
     }
 

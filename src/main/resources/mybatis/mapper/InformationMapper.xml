@@ -3,20 +3,129 @@
 <mapper namespace="com.query.info.dao.InformationMapper" >
     <!--<cache></cache>-->
     <resultMap id="InfoResult" type="com.query.info.entity.Information" >
-        <id column="id" property="id" jdbcType="BIGINT" />
-        <result column="cost_batch" property="costBatch" jdbcType="VARCHAR" />
+        <!--<id column="id" property="id" jdbcType="BIGINT" />-->
+        <result column="code_batch" property="codeBatch" jdbcType="VARCHAR" />
         <result column="expert_code" property="expertCode" jdbcType="VARCHAR" />
+        <result column="expert_name" property="expertName" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" jdbcType="VARCHAR" />
+        <result column="birth_date" property="birthDate" jdbcType="VARCHAR" />
+        <result column="card_type" property="cardType" jdbcType="VARCHAR" />
+        <result column="card_number" property="cardNumber" jdbcType="VARCHAR" />
+        <result column="country" property="country" jdbcType="VARCHAR" />
+        <result column="outside" property="outside" jdbcType="VARCHAR" />
+        <result column="cn_name" property="cnName" jdbcType="VARCHAR" />
+        <result column="inside_home" property="insideHome" jdbcType="VARCHAR" />
+        <result column="inside_live_reach_day" property="insideLiveReachDay" jdbcType="VARCHAR" />
+        <result column="bank_account_name" property="bankAccountName" jdbcType="VARCHAR" />
+        <result column="bank_code" property="bankCode" jdbcType="VARCHAR" />
+        <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+        <result column="union_bank_code" property="unionBankCode" jdbcType="VARCHAR" />
+        <result column="tel_phone" property="telPhone" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="school_code" property="schoolCode" jdbcType="VARCHAR" />
+        <result column="school_name" property="schoolName" jdbcType="VARCHAR" />
+        <result column="pay_amount" property="payAmount" jdbcType="VARCHAR" />
+        <result column="tax" property="tax" jdbcType="VARCHAR" />
+        <result column="real_pay_amount" property="realPayAmount" jdbcType="VARCHAR" />
+        <result column="current_status" property="currentStatus" jdbcType="VARCHAR" />
+        <result column="review_num" property="reviewNum" jdbcType="VARCHAR" />
+        <result column="settlement_status" property="settlementStatus" jdbcType="VARCHAR" />
+        <result column="fail_status" property="failStatus" jdbcType="VARCHAR" />
+        <result column="publish_time" property="publishTime" jdbcType="VARCHAR" />
+        <result column="publish_batch" property="publishBatch" jdbcType="VARCHAR" />
+        <result column="publish_result" property="publishResult" jdbcType="VARCHAR" />
+        <result column="publish_num" property="publishNum" jdbcType="VARCHAR" />
+        <result column="fund_type" property="fundType" jdbcType="VARCHAR" />
+        <result column="info_flag" property="infoFlag" jdbcType="VARCHAR" />
+        <result column="back_account_verify" property="backAccountVerify" jdbcType="VARCHAR" />
+        <result column="publish_fail_msg" property="publishFailMsg" jdbcType="VARCHAR" />
+        <result column="publish_fail_use_flag" property="publishFailUseFlag" jdbcType="VARCHAR" />
+        <result column="past_batch" property="pastBatch" jdbcType="VARCHAR" />
+        <result column="message_status" property="messageStatus" jdbcType="VARCHAR" />
     </resultMap>
 
     <sql id="BaseColumn">
-      id, cost_batch, expert_code
+      cost_batch, expert_code
     </sql>
 
     <select id="queryInformation" resultMap="InfoResult" parameterType="com.query.info.dto.InformationDto">
-        SELECT <include refid="BaseColumn" /> FROM t_information
+        SELECT * FROM t_information
         <where>
             1=1
+            <if test="expertCode != null and expertCode != ''">
+                AND expert_code LIKE concat('%',#{expertCode, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="expertName != null and expertName != ''">
+                AND expert_name LIKE concat('%', #{expertName, jdbcType=VARCHAR},'%')
+            </if>
         </where>
-        ORDER BY id desc;
     </select>
+
+    <insert id="insertInformationList" parameterType="java.util.List">
+        insert into t_information
+        ( code_batch,expert_code,expert_name,sex,birth_date,card_type,card_number,country,outside,cn_name,inside_home,
+        inside_live_reach_day,bank_account_name,bank_code,bank_name,union_bank_code,tel_phone,email, school_code,school_name,pay_amount,tax,
+        real_pay_amount,current_status,review_num,settlement_status,fail_status,publish_time,publish_batch, publish_result,publish_num,fund_type,info_flag,
+        back_account_verify,publish_fail_msg,publish_fail_use_flag,past_batch,message_status)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+                #{item.codeBatch},
+                #{item.expertCode},
+                #{item.expertName},
+                #{item.sex},
+                #{item.birthDate},
+                #{item.cardType},
+                #{item.cardNumber},
+                #{item.country},
+                #{item.outside},
+                #{item.cnName},
+                #{item.insideHome},
+                #{item.insideLiveReachDay},
+                #{item.bankAccountName},
+                #{item.bankCode},
+                #{item.bankName},
+                #{item.unionBankCode},
+                #{item.telPhone},
+                #{item.email},
+                #{item.schoolCode},
+                #{item.schoolName},
+                #{item.payAmount},
+                #{item.tax},
+                #{item.realPayAmount},
+                #{item.currentStatus},
+                #{item.reviewNum},
+                #{item.settlementStatus},
+                #{item.failStatus},
+                #{item.publishTime},
+                #{item.publishBatch},
+                #{item.publishResult},
+                #{item.publishNum},
+                #{item.fundType},
+                #{item.infoFlag},
+                #{item.backAccountVerify},
+                #{item.publishFailMsg},
+                #{item.publishFailUseFlag},
+                #{item.pastBatch},
+                #{item.messageStatus}
+            )
+
+        </foreach>
+        on DUPLICATE key UPDATE
+        expert_code = VALUES (expert_code),
+        expert_name = VALUES (expert_name),
+        sex = VALUES (sex),
+        birth_date = VALUES (birth_date),
+        card_type = VALUES (card_type), card_number = VALUES (card_number),country= VALUES (country),outside= VALUES (outside),cn_name= VALUES (cn_name),
+        inside_home= VALUES (inside_home),
+        inside_live_reach_day= VALUES (inside_live_reach_day),bank_account_name= VALUES (bank_account_name),bank_code= VALUES (bank_code),bank_name= VALUES (bank_name),
+        union_bank_code= VALUES (union_bank_code),tel_phone= VALUES (tel_phone),email= VALUES (email), school_code= VALUES (school_code),
+        school_name= VALUES (school_name),pay_amount= VALUES (pay_amount),tax= VALUES (tax),
+        real_pay_amount= VALUES (real_pay_amount),current_status= VALUES (current_status),review_num= VALUES (review_num),settlement_status= VALUES (settlement_status),
+        fail_status= VALUES (fail_status),
+        publish_time= VALUES (publish_time),publish_batch= VALUES (publish_batch), publish_result= VALUES (publish_result),publish_num= VALUES (publish_num),
+        fund_type= VALUES (fund_type),info_flag= VALUES (info_flag),
+        back_account_verify= VALUES (back_account_verify),publish_fail_msg= VALUES (publish_fail_msg),publish_fail_use_flag= VALUES (publish_fail_use_flag),
+        past_batch= VALUES (past_batch),message_status= VALUES (message_status)
+    </insert>
 </mapper>

@@ -2,11 +2,15 @@ package com.query.info.controller;
 
 import com.query.info.common.InfoResponse;
 import com.query.info.common.OnLineUser;
+import com.query.info.dto.UserDto;
 import com.query.info.entity.User;
 import com.query.info.service.UserService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author guonanqing
@@ -46,5 +50,17 @@ public class UserController {
     @PostMapping("/assignRole")
     public InfoResponse<String> assignRole(@RequestParam("userId") long userId, @RequestParam("roleId") long roleId){
         return userService.assignRole(userId, roleId);
+    }
+
+    @RequiresRoles("admin")
+    @PostMapping("/list")
+    public InfoResponse<List<User>> listUsers(@RequestBody UserDto userDto) {
+        return userService.listUsers(userDto);
+    }
+
+    @RequiresRoles("admin")
+    @PostMapping("/delete")
+    public InfoResponse<String> deleteUser(@RequestBody User user){
+        return userService.deleteUser(user);
     }
 }

@@ -21,4 +21,11 @@ public interface InformationMapper {
      * @return
      */
     public List<Information> queryInformation(InformationDto informationDto);
+
+    /**
+     * 批量
+     * @param informationList
+     * @return
+     */
+    public int insertInformationList(List<Information> informationList);
 }
