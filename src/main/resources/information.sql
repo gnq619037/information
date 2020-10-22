@@ -2,7 +2,7 @@
 SQLyog Trial v12.3.3 (64 bit)
 MySQL - 5.6.26-log : Database - information
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -19,8 +19,7 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`information` /*!40100 DEFAULT CHARACTER
 DROP TABLE IF EXISTS `t_information`;
 
 CREATE TABLE `t_information` (
-  `id` bigint(11) NOT NULL AUTO_INCREMENT,
-  `code_batch` varchar(20) DEFAULT NULL,
+  `code_batch` varchar(20) NOT NULL,
   `expert_code` varchar(20) DEFAULT NULL,
   `expert_name` varchar(20) DEFAULT NULL,
   `sex` varchar(2) DEFAULT NULL,
@@ -58,10 +57,12 @@ CREATE TABLE `t_information` (
   `publish_fail_use_flag` varchar(32) DEFAULT NULL,
   `past_batch` varchar(32) DEFAULT NULL,
   `message_status` varchar(32) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`code_batch`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_information` */
+
+insert  into `t_information`(`code_batch`,`expert_code`,`expert_name`,`sex`,`birth_date`,`card_type`,`card_number`,`country`,`outside`,`cn_name`,`inside_home`,`inside_live_reach_day`,`bank_account_name`,`bank_code`,`bank_name`,`union_bank_code`,`tel_phone`,`email`,`school_code`,`school_name`,`pay_amount`,`tax`,`real_pay_amount`,`current_status`,`review_num`,`settlement_status`,`fail_status`,`publish_time`,`publish_batch`,`publish_result`,`publish_num`,`fund_type`,`info_flag`,`back_account_verify`,`publish_fail_msg`,`publish_fail_use_flag`,`past_batch`,`message_status`) values ('20200501-20200531','147274','胡光华123','男','1963-02-18','居民身份证','430104196302184334','中国','否','胡光华','是','否','胡光华','4563517500019801461','中国银行长沙市中南大学支行','104551004598','13677306757','1461085029@qq.com','10533','中南大学','260',NULL,NULL,'可评阅','1','已发放','ZZ','44000','2020年05月答辩前','发放失败','1','论文送审平台','','验证有效','XX','YY','20200501-20200531,','已发送');
 
 /*Table structure for table `t_permission` */
 
@@ -78,7 +79,7 @@ CREATE TABLE `t_permission` (
 
 insert  into `t_permission`(`id`,`per_code`,`per_desc`) values (1,'query','查询权限');
 insert  into `t_permission`(`id`,`per_code`,`per_desc`) values (2,'export','导出权限');
-insert  into `t_permission`(`id`,`per_code`,`per_desc`) values (3,'upload','上传权限');
+insert  into `t_permission`(`id`,`per_code`,`per_desc`) values (3,'import','上传权限');
 
 /*Table structure for table `t_role` */
 
@@ -102,12 +103,19 @@ DROP TABLE IF EXISTS `t_role_permission`;
 
 CREATE TABLE `t_role_permission` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
-  `role_id` int(5) DEFAULT NULL,
-  `permission_id` int(5) DEFAULT NULL,
+  `role_code` varchar(20) DEFAULT NULL,
+  `per_code` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_role_permission` */
+
+insert  into `t_role_permission`(`id`,`role_code`,`per_code`) values (1,'admin','query');
+insert  into `t_role_permission`(`id`,`role_code`,`per_code`) values (2,'admin','export');
+insert  into `t_role_permission`(`id`,`role_code`,`per_code`) values (3,'admin','import');
+insert  into `t_role_permission`(`id`,`role_code`,`per_code`) values (4,'admin','userOper');
+insert  into `t_role_permission`(`id`,`role_code`,`per_code`) values (5,'user','export');
+insert  into `t_role_permission`(`id`,`role_code`,`per_code`) values (6,'user','query');
 
 /*Table structure for table `t_user` */
 
@@ -117,12 +125,14 @@ CREATE TABLE `t_user` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(10) DEFAULT NULL,
   `password` varchar(40) DEFAULT NULL,
+  `role_code` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_user` */
 
-insert  into `t_user`(`id`,`username`,`password`) values (2,'guonanqing','e09c0c83a32989dbe646e2491a89b77c');
+insert  into `t_user`(`id`,`username`,`password`,`role_code`) values (3,'guonanqing','e09c0c83a32989dbe646e2491a89b77c','user');
+insert  into `t_user`(`id`,`username`,`password`,`role_code`) values (4,'admin','9aa75c4d70930277f59d117ce19188b0','admin');
 
 /*Table structure for table `t_user_permission` */
 
